@@ -70,11 +70,12 @@
                     <h5 class='m-4'>GUI Home</h5>
                 </div>
                 <div class='col d-inline-block'>
-                    <p class='m-4'>state: <span class='text-success'>online</span></p>
+                    <p class='m-4' id="machine-state">state: <span class='text-success'>online</span></p>
                 </div>
             </div>
         </div>
     </section>
+    <hr/>
     <section id='body'>
         <div class='container mb-4'>
             <div class='row justify-content-center mb-4'>                
@@ -90,6 +91,7 @@
                     </div>
                   </div>
             </div>
+            <hr/>
             <div class='row justify-content-center'>
                 <div class='col-4'>
                     <p>GPIO 5 - State ' + output5State + '</p>
@@ -98,7 +100,7 @@
                     <p><a href='/5/on'><button class='btn btn-danger btn-lg'>OFF</button></a></p>
                 </div>
             </div>
-
+            <hr/>
             <div class='row justify-content-center'>
                 <div class='col-4'>
                     <p>GPIO 4 - State ' + output4State + '</p>
@@ -110,7 +112,7 @@
                 </div>
             </div>
 
-            
+            <hr/>
             <div class='row justify-content-center'>
                 <div class='col-2'>
                     <h5>LED Control</h5>
@@ -162,6 +164,7 @@
         var button;
         var canvas;
         var context;
+        var machineState;
         
         // This is called when the page finishes loading
         function init() {
@@ -170,6 +173,7 @@
             button = document.getElementById("toggleButton");
             output = document.getElementById("output");
             canvas = document.getElementById("led");
+            machineState = document.getElementById("machine-state");
             
             // Draw circle in canvas
             context = canvas.getContext("2d");
@@ -208,6 +212,8 @@
             
             // Get the current state of the LED
             doSend("getLEDState");
+
+            machineState.style.color = 'green';
         }
         
         // Called when the WebSocket connection is closed
@@ -218,6 +224,7 @@
             
             // Disable button
             button.disabled = true;
+            machineState.style.color = 'red';
             
             // Try to reconnect after a few seconds
             setTimeout(function() { wsConnect(url) }, 2000);
