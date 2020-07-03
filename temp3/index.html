@@ -70,7 +70,7 @@
                     <h5 class='m-4'>GUI Home</h5>
                 </div>
                 <div class='col d-inline-block'>
-                    <p class='m-4' id="machine-state">state: <span class='text-success'>online</span></p>
+                    <p class='m-4'>machine-state: <span id="machine-state">online</span></p>
                 </div>
             </div>
         </div>
@@ -183,6 +183,8 @@
             context.stroke();
             context.fillStyle = "black";
             context.fill();
+
+            machineState.style.color = 'red';
             
             // Connect to WebSocket server
             wsConnect(url);
